@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CodefellowshipApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(CodefellowshipApplication.class, args);
 	}
+
 
 }
