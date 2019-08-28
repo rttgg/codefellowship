@@ -1,14 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Log In</title>
-</head>
-<body>
-    <form method="POST" action="/login">
-        <input name="username" />
-        <input type="password" name="password" />
-        <input type="submit" />
-    </form>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Log In</title>
+        <link >
+    </head>
+    <body>
+    <div>
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">CodeFellowship</a>
+                    </li>
+                    <li th:unless="${user}">
+                        <a href="/login">Log In</a>
+                    </li>
+                    <li th:unless="${user}">
+                        <a href="/signup">Sign Up</a>
+                    </li>
+                    <li th:if="${user}">
+                        <a href="/logout">Log Out</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>CodeFellowship</h1>
+            <div>
+                <h2>Log In</h2>
+                <form method="POST" action="/login">
+                    <ul>
+                   <li>
+                       <label for="username"> Username: </label>
+                       <input type="text" name="username" id="username" />
+                       </li>
+                    <li>
+                        <label for="password"> Password: </label>
+                        <input type="password" name="password" id="password"/>
+                    </li>
+                    <li>
+                        <input type="submit" />
+                    </li>
+                    </ul>
+                </form>
+            </div>
+
+    </main>
+    </div>
+
+    </body>
+    </html>
