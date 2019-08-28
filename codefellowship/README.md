@@ -1,10 +1,10 @@
 #CodeFellowship Application
 ## Challenge Summary
 * Run the Spring app
-* Create hello world route /hello
-* Create a route that turns words into UPPER CASE
-* Create a route that reverse the order
-* Write a helper method for reverse the order test
+* Create user route 
+* Create a login route 
+* Create a signup route
+* Create a myprofile route
 
 
 
@@ -27,7 +27,7 @@ Build an app that allows users to create their profile on CodeFellowship.
 
 ## Approach & Efficiency
 
-#songr
+#codefellowship
 * This repo holds a "RESTful" spring server with multiple get routes.
 
 
@@ -50,6 +50,9 @@ Build an app that allows users to create their profile on CodeFellowship.
 ### templates
 * login.html
 * root.html
+* myprofile.html
+* signup.html
+* user.html
 
 
 
@@ -61,8 +64,9 @@ Routes
 * /: will return Home Stub Route
 * /login: will take you to login page
 * /myprofile: will take you to profile page
+* /user{id}: will take you to user 
+* /signup: will take you to signup page
 
-* includes POST route to add new albums to the database and redirects to /albums to display
 
 ### Reference 
 * Class Demo https://github.com/codefellows/seattle-java-401d5/tree/master/class-16/demo/dinosaur
