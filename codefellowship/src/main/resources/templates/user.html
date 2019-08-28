@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user</title>
+
+</head>
+<body >
+<div >
+    <header>
+        <nav>
+            <ul >
+                <li>
+                    <a href="/">CodeFellowship</a>
+                </li>
+                <li  th:unless="${user}">
+                    <a href="/login">Log In</a>
+                </li>
+                <li  th:unless="${user}">
+                    <a href="/signup">Sign Up</a>
+                </li>
+                <li  th:if="${user}">
+                    <a href="logout">Log out</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+        <div>
+            <img  src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile Image"/>
+            <h1  th:text="${searchedUser.username}">Username</h1>
+            <div>
+                <h3><span th:text="${searchedUser.firstName}">First Name</span>
+                    <span th:text="${searchedUser.lastName}">Last Name</span></h3>
+                <p>Date of Birth: <span th:text="${searchedUser.dateOfBirth}">Date of Birth</span></p>
+                <h4>Bio:</h4>
+                <p th:text="${searchedUser.bio}">Bio</p>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
