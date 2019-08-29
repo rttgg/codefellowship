@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <div th:fragment="nav">
+    <nav>
     <ul>
         <li>
             <a href="/"><h1>CodeFellowship</h1></a>
@@ -13,11 +14,16 @@
             <a href="/signup">Sign Up</a>
         </li>
 
+        <li th:unless="${user}">
+            <a href="/myprofile">My Profile</a>
+        </li>
+
         <li th:if="${user}">
             <a href="logout">Log Out <span th:text="${user.name}">username</span></a>
         </li>
 
     </ul>
+    </nav>
 </div>
 
 </html>
