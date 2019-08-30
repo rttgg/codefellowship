@@ -49,7 +49,7 @@ public class ApplicationUserController {
         if(p != null){
             applicationUser = applicationUserRepository.findByUsername(p.getName());
         }
-        m.addAttribute("loggedinuser", applicationUser);
+        m.addAttribute("user", applicationUser);
         m.addAttribute("viewuser", applicationUser);
         return "myprofile";
     }
@@ -59,9 +59,9 @@ public class ApplicationUserController {
     @GetMapping("/users/{id}")
     public String getOneUser(@PathVariable long id, Principal p, Model m){
         ApplicationUser searchedUser = applicationUserRepository.findById(id).get();
-        m.addAttribute("searchedUser",searchedUser);
-        m.addAttribute("user", p);
-        return "user";
+        m.addAttribute("user",searchedUser);
+        m.addAttribute("loggedinuser", applicationUserRepository.findByUsername(p.getName()));
+        return "myprofile";
     }
 
     @GetMapping("/users")
