@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Publish Post</title>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/nav :: nav"></nav>
+</header>
+<h1>You can publish new post</h1>
+<form method="POST" action="/posts/published">
+    <ul>
+        <li>
+            <label for="headline">Headline: </label> <input type="text" name="title" id="headline" />
+        </li>
+        <input type="submit" />
+    </ul>
+</form>
+</body>
+</html>

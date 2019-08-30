@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed</title>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/nav :: nav"></nav>
+</header>
+<h1>My Feed</h1>
+   <div th:each="post : ${feed}">
+       <img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile image"/>
+
+                <h2  th:text="${post.headline}">Headline</h2>
+
+<!--                    <a th:href="${'/users/'{id}(id=${post.publisher.id})}">-->
+                    <h3 th:text="${post.publisher}">publisher</h3>
+                </a>
+            </div>
+            <p  th:text="${post.body}">content</p>
+
+</body>
+</html>
