@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -33,7 +34,9 @@ public class PostController {
 
     @GetMapping("/post")
     public String publishedPost(Principal p, Model m){
-        m.addAttribute("user", p);
+        List<Post> posts = postRepository.findAll();
+        m.addAttribute("posts", posts);
+        m.addAttribute("user", applicationUserRepository.findByUsername(p.getName()));
         return "post";
     }
 

@@ -36,7 +36,10 @@
                     <h4>Bio</h4>
                     <p th:text="${user.bio}">Bio</p>
                 </div>
+            <div th:each="post: ${user.posts}">
+                <p th:text="${post.content}"></p>
 
+            </div>
 
             </div>
         </main>
