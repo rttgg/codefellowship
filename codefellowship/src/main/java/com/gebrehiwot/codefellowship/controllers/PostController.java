@@ -31,24 +31,24 @@ public class PostController {
     PostRepository postRepository;
 
 
-    @GetMapping("/posts/published")
+    @GetMapping("/post")
     public String publishedPost(Principal p, Model m){
         m.addAttribute("user", p);
-        return "pubpost";
+        return "post";
     }
 
 
-    @PostMapping("/posts/published")
+    @PostMapping("/post")
     public RedirectView publishedPost(String headline, String content, Principal p, Model m){
         ApplicationUser newUser = applicationUserRepository.findByUsername(p.getName());
 
         Post newPost = new Post(headline, content, newUser);
         postRepository.save(newPost);
-        m.addAttribute("profile", newUser);
-        m.addAttribute("user", p);
+
 
         return new RedirectView("/myprofile");
     }
+
 
 
 

@@ -23,13 +23,14 @@
             <a href="/feed">My Feed</a>
         </li>
 
-        <li th:unless="${user}">
-            <a href="/posts/published">Publish</a>
+        <li th:if="${user}">
+            <a href="/post">Post</a>
         </li>
 
         <li th:if="${user}">
             <a href="logout">Log Out <span th:text="${user.name}">username</span></a>
         </li>
+
 
     </ul>
 

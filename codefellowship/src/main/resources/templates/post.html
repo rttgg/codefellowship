@@ -9,13 +9,11 @@
     <nav th:replace="fragments/nav :: nav"></nav>
 </header>
 <h1>You can publish new post</h1>
-<form method="POST" action="/posts/published">
-    <ul>
-        <li>
-            <label for="headline">Headline: </label> <input type="text" name="title" id="headline" />
-        </li>
+<form method="POST" action="/post">
+  <textarea name="content" placeholder="type post here"></textarea>
+
         <input type="submit" />
-    </ul>
+
 </form>
 </body>
 </html>
