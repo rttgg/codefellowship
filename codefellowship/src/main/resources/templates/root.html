@@ -27,7 +27,7 @@
         <main>
             <div>
                 <h1>Hello</h1>
-                <h1>Codefellowship</h1>
+                <h1>Codefellowship<span th:if="${user}"></span></h1>
                 <h1 th:if="${user}"><span th:text="${user.name}">username</span></h1>
 
             </div>

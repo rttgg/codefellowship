@@ -1,5 +1,6 @@
 package com.gebrehiwot.codefellowship.controllers;
 
+import com.gebrehiwot.codefellowship.models.Post;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 public class ApplicationUserController {
@@ -34,23 +34,69 @@ public class ApplicationUserController {
         applicationUserRepository.save(newUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-    return new RedirectView("/myprofile");
+          return new RedirectView("/myprofile");
     }
+
     @GetMapping("/login")
     public String getLoginPage(){
         return "login";
     }
+
+
     @GetMapping("/myprofile")
     public String getMyProfile(Principal p, Model m){
-        m.addAttribute("profile", applicationUserRepository.findByUsername(p.getName()));
-        m.addAttribute("user", p);
+        ApplicationUser applicationUser = null;
+        if(p != null){
+            applicationUser = applicationUserRepository.findByUsername(p.getName());
+        }
+        m.addAttribute("user", applicationUser);
+        m.addAttribute("viewuser", applicationUser);
         return "myprofile";
     }
 
+
+
     @GetMapping("/users/{id}")
-    public String getOneUser(@PathVariable long id, Model m){
+    public String getOneUser(@PathVariable long id, Principal p, Model m){
         ApplicationUser searchedUser = applicationUserRepository.findById(id).get();
-        m.addAttribute("searchedUser",searchedUser);
-        return "user";
+        m.addAttribute("user",searchedUser);
+        m.addAttribute("loggedinuser", applicationUserRepository.findByUsername(p.getName()));
+        return "myprofile";
     }
+
+    @GetMapping("/users")
+    public String getAllUsers(Model m, Principal p){
+        ApplicationUser applicationUser = null;
+
+        if(p != null){
+            applicationUser = applicationUserRepository.findByUsername(p.getName());
+        }
+        m.addAttribute("loggedinuser", applicationUser);
+        m.addAttribute("allAppUsers", applicationUserRepository.findAll());
+        return "alluser";
+    }
+
+    @PostMapping("/users/follow")
+    public RedirectView whoToFollow(long id, Principal p){
+        ApplicationUser userWhoLoggedIn = applicationUserRepository.findByUsername(p.getName());
+        ApplicationUser followedUser = applicationUserRepository.findById(id).get();
+        userWhoLoggedIn.followUser(followedUser);
+        applicationUserRepository.save(userWhoLoggedIn);
+        return new RedirectView("/users");
+    }
+
+    @GetMapping("/feed")
+    public String findFeed(Principal p, Model m){
+        ApplicationUser userWhoLoggedIn = applicationUserRepository.findByUsername(p.getName());
+        Set<ApplicationUser> userIFollow = userWhoLoggedIn.getUserIFollow();
+        List<Post> followedPosts = new LinkedList<>();
+        for ( ApplicationUser user : userIFollow){
+            followedPosts.addAll( user.getPosts());
+        }
+        m.addAttribute("feed", followedPosts);
+        m.addAttribute("user", p);
+        return "feed";
+    }
+
+
 }

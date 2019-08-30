@@ -4,12 +4,11 @@ package com.gebrehiwot.codefellowship.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -17,6 +16,7 @@ public class ApplicationUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(unique = true)
     String username;
 
     String password;
@@ -24,6 +24,27 @@ public class ApplicationUser implements UserDetails {
     String lastName;
     String bio;
     Date dateOfBirth;
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publisher")
+    List<Post> posts;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_follow",
+            joinColumns = @JoinColumn(name="followerUser"),
+            inverseJoinColumns =  @JoinColumn(name = "followedUser")
+    )
+    Set<ApplicationUser> userIFollow;
+
+    public Set<ApplicationUser> getMyFollower() {
+        return myFollower;
+    }
+
+    @ManyToMany( mappedBy = "userIFollow" )
+    Set<ApplicationUser> myFollower;
+
+
 
 
     public ApplicationUser(String username, String password, String firstName, String lastName, String bio, Date dateOfBirth) {
@@ -97,5 +118,17 @@ public class ApplicationUser implements UserDetails {
     public String toString(){
         return String.format("%s (%s %s)", this.username, this.firstName, this.lastName);
 
+    }
+
+    public void followUser(ApplicationUser followedUser) {
+
+    }
+
+    public Set<ApplicationUser> getUserIFollow() {
+        return userIFollow;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 }

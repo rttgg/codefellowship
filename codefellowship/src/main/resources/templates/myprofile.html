@@ -28,15 +28,18 @@
         <main>
             <div>
                 <img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile image"/>
-                <h1  th:unless="${user.name}">Username</h1>
+                <h1  th:text="${user.username}">Username</h1>
                 <div>
-                    <h2><span th:text="${profile.firstName}">First Name</span>
-                    <span th:text="${profile.lastName}">Last Name</span></h2>
-                    <h3>Date of Birth: <span th:text="${profile.dateOfBirth}">Date Of Birth</span></h3>
+                    <h2><span th:text="${user.firstName}">First Name</span>
+                    <span th:text="${user.lastName}">Last Name</span></h2>
+                    <h3>Date of Birth: <span th:text="${user.dateOfBirth}">Date Of Birth</span></h3>
                     <h4>Bio</h4>
-                    <p th:text="${profile.bio}">Bio</p>
+                    <p th:text="${user.bio}">Bio</p>
                 </div>
+            <div th:each="post: ${user.posts}">
+                <p th:text="${post.content}"></p>
 
+            </div>
 
             </div>
         </main>
