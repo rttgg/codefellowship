@@ -61,14 +61,19 @@ public class ApplicationUserController {
         ApplicationUser searchedUser = applicationUserRepository.findById(id).get();
         m.addAttribute("searchedUser",searchedUser);
         m.addAttribute("user", p);
-        return "oneuser";
+        return "user";
     }
 
     @GetMapping("/users")
     public String getAllUsers(Model m, Principal p){
-        m.addAttribute("user", p);
+        ApplicationUser applicationUser = null;
+
+        if(p != null){
+            applicationUser = applicationUserRepository.findByUsername(p.getName());
+        }
+        m.addAttribute("loggedinuser", applicationUser);
         m.addAttribute("allAppUsers", applicationUserRepository.findAll());
-        return "allusers";
+        return "alluser";
     }
 
     @PostMapping("/users/follow")
