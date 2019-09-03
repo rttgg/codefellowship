@@ -5,44 +5,19 @@
         <title>My Profile</title>
     </head>
     <body>
+    <img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile image"/>
+
+    <div th:replace="fragments/nav :: nav"></div>
     <div>
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/">CodeFellowship</a>
-                    </li>
-                    <li th:unless="${user}">
-                        <a href="/login">Log In</a>
-                    </li>
-                    <li th:unless="${user}">
-                        <a href="/signup">Sign Up</a>
-                    </li>
-                    <li th:if="${user}">
-                        <a href="/logout">Log Out</a>
+<!--    <div th:replace="fragments/user :: myprofile(userToProfile=${viewuser})"></div>-->
+      <div th:replace="fragments/user :: myprofile(userToMyProfile=${viewuser})"></div>
+    <form method="post" th:action="'/follow/' + ${viewuser.id}" th:if="${viewuser.username != user.name}">
+        <button type="submit">Follow</button>
+    </form>
 
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div>
-                <img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile image"/>
-                <h1  th:text="${user.username}">Username</h1>
-                <div>
-                    <h2><span th:text="${user.firstName}">First Name</span>
-                    <span th:text="${user.lastName}">Last Name</span></h2>
-                    <h3>Date of Birth: <span th:text="${user.dateOfBirth}">Date Of Birth</span></h3>
-                    <h4>Bio</h4>
-                    <p th:text="${user.bio}">Bio</p>
-                </div>
-            <div th:each="post: ${user.posts}">
-                <p th:text="${post.content}"></p>
+    <div th:include="fragments/post :: post" th:if="${viewuser.username == user.name}"></div>
 
-            </div>
-
-            </div>
-        </main>
     </div>
     </body>
     </html>
+

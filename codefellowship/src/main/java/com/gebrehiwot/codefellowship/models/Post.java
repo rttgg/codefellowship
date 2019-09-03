@@ -1,6 +1,8 @@
 package com.gebrehiwot.codefellowship.models;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Entity
 public class Post {
@@ -8,16 +10,30 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String headline;
+    //String headline;
     String content;
+    String createdAt;
 
     @ManyToOne
     ApplicationUser publisher;
 
+    public String getContent() {
+        return content;
+    }
 
-    public Post(String headline, String content, ApplicationUser publisher){
-        this.headline = headline;
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public ApplicationUser getPublisher() {
+        return publisher;
+    }
+
+    public Post(String content, ApplicationUser publisher){
+        //this.headline = headline;
         this.content = content;
+        this.createdAt= createdAt;
+
         this.publisher = publisher;
     }
 
@@ -26,22 +42,11 @@ public class Post {
         return id;
     }
 
-    public String getHeadline() {
-        return headline;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public ApplicationUser getPublisher() {
-        return publisher;
-    }
-
     public Post(){}
 
 
-public String toString() {
-    return String.format("this post is owned by " + this.publisher.getFirstName());
+//public String toString() {
+//    return String.format("this post is owned by " + this.publisher.getFirstName());
+//}
 }
-}
+

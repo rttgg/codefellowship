@@ -1,6 +1,6 @@
 package com.gebrehiwot.codefellowship.controllers;
 
-import com.gebrehiwot.codefellowship.models.Post;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.*;
 
 @Controller
@@ -30,16 +31,10 @@ public class ApplicationUserController {
     @PostMapping("/users")
     public RedirectView createUser(String username, String password, String firstName, String lastName, String bio, Date dateOfBirth){
         ApplicationUser newUser = new ApplicationUser(username, encoder.encode(password),firstName,lastName,bio,dateOfBirth);
-        //bcrypt handles hashing/salting
         applicationUserRepository.save(newUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
           return new RedirectView("/myprofile");
-    }
-
-    @GetMapping("/login")
-    public String getLoginPage(){
-        return "login";
     }
 
 
@@ -49,7 +44,7 @@ public class ApplicationUserController {
         if(p != null){
             applicationUser = applicationUserRepository.findByUsername(p.getName());
         }
-        m.addAttribute("user", applicationUser);
+        m.addAttribute("user", p);
         m.addAttribute("viewuser", applicationUser);
         return "myprofile";
     }
@@ -59,44 +54,42 @@ public class ApplicationUserController {
     @GetMapping("/users/{id}")
     public String getOneUser(@PathVariable long id, Principal p, Model m){
         ApplicationUser searchedUser = applicationUserRepository.findById(id).get();
-        m.addAttribute("user",searchedUser);
-        m.addAttribute("loggedinuser", applicationUserRepository.findByUsername(p.getName()));
+        m.addAttribute("user", p);
+        m.addAttribute("viewuser", searchedUser);
         return "myprofile";
     }
 
     @GetMapping("/users")
     public String getAllUsers(Model m, Principal p){
-        ApplicationUser applicationUser = null;
+        //ApplicationUser applicationUser = null;
 
-        if(p != null){
-            applicationUser = applicationUserRepository.findByUsername(p.getName());
+        if(p != null) {
+            m.addAttribute("user", p);
         }
-        m.addAttribute("loggedinuser", applicationUser);
-        m.addAttribute("allAppUsers", applicationUserRepository.findAll());
-        return "alluser";
+
+        m.addAttribute("allUsers", applicationUserRepository.findAll());
+        return "allUsers";
     }
 
-    @PostMapping("/users/follow")
-    public RedirectView whoToFollow(long id, Principal p){
+    @PostMapping("/follow/{id}")
+    public RedirectView whoToFollow(@PathVariable long id, Principal p){
         ApplicationUser userWhoLoggedIn = applicationUserRepository.findByUsername(p.getName());
-        ApplicationUser followedUser = applicationUserRepository.findById(id).get();
-        userWhoLoggedIn.followUser(followedUser);
+
+        userWhoLoggedIn.followUser(applicationUserRepository.findById(id).get());
         applicationUserRepository.save(userWhoLoggedIn);
-        return new RedirectView("/users");
+        return new RedirectView("/myprofile");
     }
 
     @GetMapping("/feed")
     public String findFeed(Principal p, Model m){
-        ApplicationUser userWhoLoggedIn = applicationUserRepository.findByUsername(p.getName());
-        Set<ApplicationUser> userIFollow = userWhoLoggedIn.getUserIFollow();
-        List<Post> followedPosts = new LinkedList<>();
-        for ( ApplicationUser user : userIFollow){
-            followedPosts.addAll( user.getPosts());
+
+            if(p != null){
+                m.addAttribute("user", p);
+            }
+            m.addAttribute("loggedInUser", applicationUserRepository.findByUsername(p.getName()));
+            return "feed";
         }
-        m.addAttribute("feed", followedPosts);
-        m.addAttribute("user", p);
-        return "feed";
+
     }
 
 
-}

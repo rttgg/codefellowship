@@ -1,41 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<nav th:fragment="nav">
+    <!DOCTYPE html>
+    <html lang="en">
+    <div th:fragment="nav">
+    <nav th:if="${user}">
+        <a href="/myprofile"><span th:text="${user.name}"></span></a>
+        <a href="/"><h1>Codefellowship/Home</h1></a>
+        <a href="/users"><h1>All Users</h1></a>
+        <a href="/feed">My Feed</a>
+        <a href="/logout">Log Out</a>
 
-    <ul>
-        <li>
-            <a href="/"><h1>CodeFellowship</h1></a>
-        </li>
-        <li th:unless="${user}">
-            <a href="/login">Log In</a>
+    </nav>
 
-        </li>
-        <li th:unless="${user}">
-            <a href="/signup">Sign Up</a>
-        </li>
+            <nav th:unless="${user}">
+                <a href="/"><h1>Codefellowship/Home</h1></a>
+                <a href="/login">Log In</a>
+                <br>
+                <a href="/signup">Sign up</a>
 
+            </nav>
 
-        <li th:unless="${user}">
-            <a href="/myprofile">My Profile</a>
-        </li>
+    </div>
 
-        <li th:unless="${user}">
-            <a href="/feed">My Feed</a>
-        </li>
-
-        <li th:if="${user}">
-            <a href="/post">Post</a>
-        </li>
-
-        <li th:if="${user}">
-            <a href="logout">Log Out <span th:text="${user.name}">username</span></a>
-        </li>
-
-
-    </ul>
-
-</nav>
-
-</html>
-
+    </html>
 

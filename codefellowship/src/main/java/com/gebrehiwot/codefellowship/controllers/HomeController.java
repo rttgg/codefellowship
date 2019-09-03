@@ -23,16 +23,27 @@ public class HomeController {
 
         if(p != null){
             applicationUser = applicationUserRepository.findByUsername(p.getName());
-            m.addAttribute("user", applicationUser);
+            m.addAttribute("viewuser", applicationUser);
+            m.addAttribute("user", p);
             return "/myprofile";
         }
 
         return "root";
     }
     @GetMapping("/signup")
-    public String getSignup(){
+    public String getSignupPage(){
 
         return "signup";
     }
 
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
+
 }
+
+
+
+
+
