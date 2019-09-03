@@ -1,54 +1,27 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>Log In</title>
+    <meta charset="UTF-8">
+    <title>Log In</title>
 
     </head>
     <body>
-    <div>
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/">CodeFellowship</a>
-                    </li>
-                    <li th:unless="${user}">
-                        <a href="/login">Log In</a>
-                    </li>
-                    <li th:unless="${user}">
-                        <a href="/signup">Sign Up</a>
-                    </li>
-                    <li th:if="${user}">
-                        <a href="/logout">Log Out</a>
+    <div th:replace="fragments/nav ::nav"></div>
 
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <h1>CodeFellowship</h1>
-            <div>
-                <h2>Log In</h2>
-                <form method="POST" action="/login">
-                    <ul>
-                   <li>
-                       <label for="username"> Username: </label>
-                       <input type="text" name="username" id="username" />
-                       </li>
-                    <li>
-                        <label for="password"> Password: </label>
-                        <input type="password" name="password" id="password"/>
-                    </li>
-                    <li>
-                        <input type="submit" />
-                    </li>
-                    </ul>
-                </form>
-            </div>
+    <h2>Log In</h2>
+    <form method="POST" action="/login">
 
-    </main>
-    </div>
+    <label for="username"> Username: </label>
+    <input type="text" name="username" id="username" />
+
+    <label for="password"> Password: </label>
+    <input type="password" name="password" id="password"/>
+
+    <input type="submit" />
+
+    </form>
+
 
     </body>
     </html>
+

@@ -2,37 +2,13 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>CodeFellowship</title>
+        <title>Home</title>
     </head>
     <body>
-    <div>
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/">CodeFellowShip</a>
-                    </li>
-                    <li th:unless="${user}">
-                        <a href="/login">Log In</a>
-                    </li>
-                    <li th:unless="${user}">
-                        <a href="/signup">Sign Up</a>
-                    </li>
-                    <li th:if="${user}">
-                        <a href="/logout">Log Out</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div>
-                <h1>Hello</h1>
-                <h1>Codefellowship<span th:if="${user}"></span></h1>
-                <h1 th:if="${user}"><span th:text="${user.name}">username</span></h1>
+    <div th:replace="fragments/nav :: nav"></div>
 
-            </div>
-        </main>
-    </div>
+        <h1>Codefellowship</h1>
+       <p>Follow Codefellowship principle</p>
 
     </body>
     </html>

@@ -5,8 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class ApplicationUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    long id;
     @Column(unique = true)
     String username;
 
@@ -35,14 +35,14 @@ public class ApplicationUser implements UserDetails {
             joinColumns = @JoinColumn(name="followerUser"),
             inverseJoinColumns =  @JoinColumn(name = "followedUser")
     )
-    Set<ApplicationUser> userIFollow;
+    Set<ApplicationUser> followedUsers;
 
-    public Set<ApplicationUser> getMyFollower() {
-        return myFollower;
+    public Set<ApplicationUser> getMyFollowers() {
+        return myFollowers;
     }
 
-    @ManyToMany( mappedBy = "userIFollow" )
-    Set<ApplicationUser> myFollower;
+    @ManyToMany( mappedBy = "followedUsers" )
+    Set<ApplicationUser> myFollowers;
 
 
 
@@ -115,20 +115,66 @@ public class ApplicationUser implements UserDetails {
         return true;
     }
 
-    public String toString(){
-        return String.format("%s (%s %s)", this.username, this.firstName, this.lastName);
+//    public String toString(){
+//        return String.format("%s (%s %s)", this.username, this.firstName, this.lastName);
+//
+//    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public void setFollowedUsers(Set<ApplicationUser> followedUsers) {
+        this.followedUsers = followedUsers;
+    }
+
+    public void setMyFollowers(Set<ApplicationUser> myFollowers) {
+        this.myFollowers = myFollowers;
     }
 
     public void followUser(ApplicationUser followedUser) {
 
     }
 
-    public Set<ApplicationUser> getUserIFollow() {
-        return userIFollow;
+    public Set<ApplicationUser> getFollowedUsers() {
+        return followedUsers;
     }
 
     public List<Post> getPosts() {
         return posts;
     }
 }
+
+
+
+
+
+

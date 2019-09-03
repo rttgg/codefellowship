@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Publish Post</title>
+    <title>Posts</title>
 </head>
 <body>
 <header>
     <nav th:replace="fragments/nav :: nav"></nav>
 </header>
 <h1>You can publish new post</h1>
-<form method="POST" action="/post">
+<form method="POST" action="/posts">
   <textarea name="content" placeholder="type post here"></textarea>
 
         <input type="submit" />
