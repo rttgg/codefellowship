@@ -16,7 +16,7 @@
                 <h3 th:text="${post.username}"></h3>
                 <a/>
 
-                    <li th:each="post : ${post.posts}" th:text=" 'Created at ' + ${post.createdAt} + ': ' + ${post.body}">
+                    <li th:each="post : ${post.posts}" th:text=" 'Created at ' + ${post.createdAt} + ': ' + ${post.content}">
 
             </li>
 

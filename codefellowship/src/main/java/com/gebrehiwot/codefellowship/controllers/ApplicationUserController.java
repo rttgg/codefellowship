@@ -68,7 +68,7 @@ public class ApplicationUserController {
         }
 
         m.addAttribute("allUsers", applicationUserRepository.findAll());
-        return "allUsers";
+        return "allUser";
     }
 
     @PostMapping("/follow/{id}")

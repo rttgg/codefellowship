@@ -15,7 +15,7 @@
         <div th:if="${userToProfile.posts != null && userToProfile.posts.size() > 0}">
             <h3>Posts:</h3>
             <ul>
-                <li th:each="post : ${userToProfile.posts}" th:text="'Created at ' + ${post.createdAt} + ': ' + ${post.body}">
+                <li th:each="post : ${userToProfile.posts}" th:text="'Created at ' + ${post.createdAt} + ': ' + ${post.content}">
 
                 </li>
             </ul>

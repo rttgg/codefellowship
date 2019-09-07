@@ -161,6 +161,7 @@ public class ApplicationUser implements UserDetails {
     }
 
     public void followUser(ApplicationUser followedUser) {
+        followedUsers.add(followedUser);
 
     }
 

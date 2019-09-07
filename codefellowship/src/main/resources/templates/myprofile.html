@@ -1,23 +1,24 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>My Profile</title>
-    </head>
-    <body>
-    <img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile image"/>
-
-    <div th:replace="fragments/nav :: nav"></div>
-    <div>
-<!--    <div th:replace="fragments/user :: myprofile(userToProfile=${viewuser})"></div>-->
-      <div th:replace="fragments/user :: myprofile(userToMyProfile=${viewuser})"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+</head>
+<body>
+<img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile image"/>
+​
+<div th:replace="fragments/nav :: nav"></div>
+<div>
+    <!--    <div th:replace="fragments/user :: myprofile(userToProfile=${viewuser})"></div>-->
+    <div th:replace="fragments/user :: myprofile(userToProfile=${viewuser})"></div>
     <form method="post" th:action="'/follow/' + ${viewuser.id}" th:if="${viewuser.username != user.name}">
         <button type="submit">Follow</button>
     </form>
-
-    <div th:include="fragments/post :: post" th:if="${viewuser.username == user.name}"></div>
-
+    ​
+    <div th:if="${viewuser.username == user.name}">
+        <div th:include="fragments/post :: post"></div>
     </div>
-    </body>
-    </html>
-
+    ​
+</div>
+</body>
+</html>

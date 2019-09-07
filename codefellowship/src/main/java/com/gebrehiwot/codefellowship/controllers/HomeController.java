@@ -25,7 +25,7 @@ public class HomeController {
             applicationUser = applicationUserRepository.findByUsername(p.getName());
             m.addAttribute("viewuser", applicationUser);
             m.addAttribute("user", p);
-            return "/myprofile";
+            //return "/myprofile";
         }
 
         return "root";
