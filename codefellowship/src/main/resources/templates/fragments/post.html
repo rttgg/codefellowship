@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Posts</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header>-->
+<!--    <nav th:replace="fragments/nav :: nav"></nav>-->
+<!--</header>-->
+
+<div th:fragment="post">
+<h1>You can publish new post</h1>
+<form method="POST" action="/posts">
+  <textarea name="content" placeholder="type post here"></textarea>
+
+        <input type="submit" />
+
+</form>
+</div>
+
+</html>

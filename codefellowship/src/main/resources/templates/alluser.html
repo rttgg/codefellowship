@@ -8,8 +8,9 @@
     <body>
     <div th:include="fragments/nav :: nav"></div>
 
-    <div th:each="user : ${allAppUsers}"></div>
+    <div th:each="currentUser : ${allUsers}">
         <img  src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="profile Image"/>
-        <div th:replace="fragnments/user :: myprofile(userToProflie=${user})"></div>
+        <div th:replace="fragments/user :: myprofile(userToProfile=${currentUser})"></div>
+    </div>
     </body>
     </html>
